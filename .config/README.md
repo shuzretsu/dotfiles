@@ -1,1 +1,1 @@
-A dotfiles for costum hyprland 
+A dotfiles config for costum hyprland 
