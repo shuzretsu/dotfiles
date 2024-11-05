@@ -1,0 +1,138 @@
+{
+    "layer": "top",                            // Waybar layer on top
+    "position": "top",                          // Position of Waybar (top)
+    "height": 25,                               // Waybar height
+    "width": 1920,                              // Waybar width
+
+    // Module layout configuration
+    "modules-left": ["custom/archlogo", "hyprland/workspaces"],
+    "modules-center": ["sway/window"],
+    "modules-right": [
+        "tray", "pulseaudio", "network", "cpu", "memory", 
+        "temperature", "backlight", "battery", 
+        "", "clock", "custom/power"
+    ],
+    "hyprland/workspaces": {
+    	"disable-scroll": true,
+    	"format": "{icon}",  // or {icon} based on your preference
+    	"icon-default": "",  // Default workspace icon
+    	"icon-focused": "",  // Focused workspace icon
+    	"icon-urgent": "",   // Urgent workspace icon
+    	"max-icon-len": 5     // Maximum number of workspace icons to show
+  },
+     // Custom Arch logo module
+    "custom/archlogo": {
+        "format": "",
+        // "exec": "echo ''",  // Arch logo icon
+        "return-type": "plain",  // Output type for exec (text/plain)
+        "on-click": "~/.config/scripts/toggle_rofi.sh",  // Toggle Rofi script
+        //"format": "{output}",
+        "tooltip": "Menu"
+  },
+  "custom/power": {
+    "format": "", // or any other icon you prefer
+    "on-click": "~/.config/scripts/power_menu.sh",
+    "tooltip": "Power Menu",
+    //"modules-right": ["network", "custom/power"]
+
+},
+
+    // Sway mode settings
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+
+    // Idle inhibitor settings
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "", "deactivated": ""
+        }
+    },
+
+    // System tray configuration
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    },
+
+    // Clock settings
+    "clock": {
+        "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+        "format-alt": "{:%Y-%m-%d}",
+        "tooltip": "clock"
+    },
+
+    // CPU usage display
+    "cpu": {
+        "format": "{usage}% "
+    },
+
+    // Memory usage display
+    "memory": {
+        "format": "{}% "
+    },
+
+    // Temperature settings
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C "
+    },
+
+    // Backlight control
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "states": [0, 40],
+        "format-icons": ["", ""]
+    },
+
+    // Battery status
+    "battery": {
+        "states": {
+            "good": 95, "warning": 30, "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    // Secondary battery configuration (example: BAT1)
+    //"battery#bat1": {
+        //"bat": "BAT1"
+    //},
+
+    // Network configuration
+    "network": {
+    	"format-wifi": "{essid} ({signalStrength}%) ",
+    	"format-alt": "{ifname}: {ipaddr}/{cidr} ",
+    	"format-disconnected": "Disconnected ⚠",
+    	"interval": 7,
+    	"click-left": "xfce4-terminal -e bash -c 'ip a; sleep 5'",  // Opens a terminal to show IP info
+    	"tooltip": false
+  },
+
+
+    // Audio control (PulseAudio)
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "", "handsfree": "", "headset": "", 
+            "phone": "", "portable": "", "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    // Custom media module
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "", "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
+    }
+}
