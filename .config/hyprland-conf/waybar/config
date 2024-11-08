@@ -1,0 +1,99 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 25,
+    "width": 1920,
+    "modules-left": ["custom/archlogo", "hyprland/workspaces"],
+    "modules-center": [ ],
+    "modules-right": [
+        "tray", "pulseaudio", "network", "cpu", "memory", 
+        "temperature", "backlight", "battery", "clock", "custom/power"
+    ],
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": "{name}",
+        "icon-default": "",        
+        "icon-focused": "",       
+        "icon-urgent": "",         
+        "active-only": false,      
+        "max-icon-len": 5
+   },
+    "custom/archlogo": {
+        "format": "",
+        "on-click": "~/.config/scripts/toggle_rofi.sh",
+        "tooltip": "Menu"
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "~/.config/scripts/power_menu.sh",
+        "tooltip": "Power Menu"
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "", "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+        "format-alt": "{:%Y-%m-%d}",
+        "tooltip": "clock"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C "
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "states": [0, 40],
+        "format-icons": ["", ""]
+    },
+    "battery": {
+        "states": {
+            "good": 95, "warning": 30, "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-alt": "{ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "Disconnected ⚠",
+        "interval": 7,
+        "click-left": "xfce4-terminal -e bash -c 'ip a; sleep 5'",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "", "handsfree": "", "headset": "", 
+            "phone": "", "portable": "", "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "", "default": "🎜"
+        },
+        "exec": "$HOME/.config/waybar/mediaplayer.py"
+    }
+}
