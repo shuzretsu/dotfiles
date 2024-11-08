@@ -89,11 +89,10 @@ lspconfig.ccls.setup{}
 lspconfig.clangd.setup{}
 
 -------------------------------------------------------------
--- Completion Configuration
+-- Completion Configuration & Lang Server
 -------------------------------------------------------------
 local cmp = require('cmp')
 vim.o.completeopt = 'menuone,noselect'
-
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -109,6 +108,91 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'path' }
   })
 })
+
+
+  -----------------------------------------------------------
+  -- File Explorer Conf
+  -----------------------------------------------------------
+require('nvim-tree').setup()
+vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
+  -----------------------------------------------------------
+  -- Telescope Fuzzy Finder Conf
+  -----------------------------------------------------------
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = {"node_modules", ".git"},
+  }
+}
+vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope find_files<CR>', { noremap = true, silent = true })
+
+  -----------------------------------------------------------
+  -- GIT Conf
+  -----------------------------------------------------------
+  require('gitsigns').setup()
+  
+  -----------------------------------------------------------
+  -- TERMINAL INT
+  -----------------------------------------------------------
+ require("toggleterm").setup{
+  open_mapping = [[<C-\>]],
+  direction = 'float',
+}
+
+   -----------------------------------------------------------
+  -- DAP Debugging
+  -----------------------------------------------------------
+local dap = require('dap')
+local dapui = require('dapui')
+
+dapui.setup()
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+vim.api.nvim_set_keymap('n', '<F5>', ':lua require"dap".continue()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F10>', ':lua require"dap".step_over()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F11>', ':lua require"dap".step_into()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F12>', ':lua require"dap".step_out()<CR>', { noremap = true, silent = true })
+
+
+  -----------------------------------------------------------
+  -- UI and Keybindings
+  -----------------------------------------------------------
+  -- Lualine and Barbar
+require('lualine').setup { options = { theme = 'gruvbox' } }
+require'bufferline'.setup{}
+
+-- Auto-pairs and Comments
+require('nvim-autopairs').setup{}
+require('kommentary.config').use_extended_mappings()
+
+  -----------------------------------------------------------
+  -- Treesitter for Syntax Highlighting
+  -----------------------------------------------------------
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { "python", "rust", "c", "cpp", "cuda", "fortran" },
+  highlight = { enable = true },
+  indent = { enable = true },
+  playground = { enable = true },
+}
+
+  -----------------------------------------------------------
+  -- Telescop Keyindings
+  -----------------------------------------------------------
+vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap = true, silent = true })
+
