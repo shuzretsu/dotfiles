@@ -141,7 +141,7 @@ Press `<C-\>` to open the embedded terminal within Neovim. This can be used for 
 
 ## Additional Configutarion
 
-1. **Customizing Keybindings**: You can edit the `init.lua` file to remap keys based on your preferences.
-2. **Adding More Plugins**: With `packer.nvim`, simply add more plugins to your `init.lua` configuration under `use` statements and run `:PackerSync` to install them.
+1. **Customizing Keybindings**: Edit the `init.lua` file to remap keys based on preferences.
+2. **Adding More Plugins**: With `packer.nvim`, add more plugins to your `init.lua` configuration under `use` statements and run `:PackerSync` to install them.
 3. **Updating Plugins**: Run `:PackerUpdate` periodically to keep your plugins updated.
 4. **Troubleshooting**: For debugging any setup issues, you can run `:PackerSync` to ensure plugins are installed correctly and check for errors in the `init.lua` file.
