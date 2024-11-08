@@ -1,73 +1,57 @@
--- Specify Python Interpreter for Neovim
+- Set Python Interpreter for Neovim
 vim.g.python3_host_prog = '~/.venvs/neovim/bin/python'
-
 -------------------------------------------------------------
 -- Plugin Manager: packer.nvim
 -------------------------------------------------------------
 vim.cmd [[packadd packer.nvim]]
 require('packer').startup(function(use)
+
+  -- packer
+  use 'nvim-neotest/nvim-nio'
+  use 'kyazdani42/nvim-web-devicons'
+  
+
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  -----------------------------------------------------------
-  -- Language Server Protocol (LSP) Support and Configuration
-  -----------------------------------------------------------
+  -- Language Server Protocol (LSP) Support
   use 'neovim/nvim-lspconfig'
   use { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' }
-  use 'GutenYe/fortran-lsp.nvim'  -- Additional Fortran support
 
-  -----------------------------------------------------------
   -- Code Completion and Snippets
-  -----------------------------------------------------------
-  use 'hrsh7th/nvim-cmp'           -- Completion engine
-  use 'hrsh7th/cmp-nvim-lsp'       -- LSP source for nvim-cmp
-  use 'hrsh7th/cmp-buffer'         -- Buffer source for nvim-cmp
-  use 'hrsh7th/cmp-path'           -- Path source for nvim-cmp
-  use 'saadparwaiz1/cmp_luasnip'   -- Snippet completion
-  use 'L3MON4D3/LuaSnip'           -- Snippet engine
-  use 'rafamadriz/friendly-snippets' -- Common snippets
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'L3MON4D3/LuaSnip'
+  use 'rafamadriz/friendly-snippets'
 
-  -----------------------------------------------------------
   -- Syntax Highlighting
-  -----------------------------------------------------------
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-  -----------------------------------------------------------
   -- File Explorer
-  -----------------------------------------------------------
   use 'kyazdani42/nvim-tree.lua'
 
-  -----------------------------------------------------------
   -- Fuzzy Finder
-  -----------------------------------------------------------
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
-  -----------------------------------------------------------
   -- Statusline and Tabline
-  -----------------------------------------------------------
   use 'nvim-lualine/lualine.nvim'
   use 'romgrk/barbar.nvim'
 
-  -----------------------------------------------------------
   -- Git Integration
-  -----------------------------------------------------------
   use 'lewis6991/gitsigns.nvim'
 
-  -----------------------------------------------------------
   -- Terminal Integration
-  -----------------------------------------------------------
   use 'akinsho/toggleterm.nvim'
 
-  -----------------------------------------------------------
   -- Debugger
-  -----------------------------------------------------------
   use 'mfussenegger/nvim-dap'
   use 'rcarriga/nvim-dap-ui'
   use 'theHamsta/nvim-dap-virtual-text'
 
-  -----------------------------------------------------------
   -- Auto-pairs and Comments
-  -----------------------------------------------------------
   use 'windwp/nvim-autopairs'
   use 'b3nj5m1n/kommentary'
 end)
@@ -75,10 +59,9 @@ end)
 -------------------------------------------------------------
 -- LSP Setup
 -------------------------------------------------------------
--- Configure Mason for managing LSP installations
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'pyright', 'rust_analyzer', 'ccls', 'clangd' }
+  ensure_installed = { 'pyright', 'rust_analyzer', 'ccls', 'clangd', 'fortls' }
 })
 
 -- Load LSP configurations
@@ -87,9 +70,11 @@ lspconfig.pyright.setup{}
 lspconfig.rust_analyzer.setup{}
 lspconfig.ccls.setup{}
 lspconfig.clangd.setup{}
+lspconfig.fortls.setup{}
+
 
 -------------------------------------------------------------
--- Completion Configuration & Lang Server
+-- Completion and Language Server Configuration
 -------------------------------------------------------------
 local cmp = require('cmp')
 vim.o.completeopt = 'menuone,noselect'
@@ -114,39 +99,38 @@ cmp.setup({
   })
 })
 
-
-  -----------------------------------------------------------
-  -- File Explorer Conf
-  -----------------------------------------------------------
+-------------------------------------------------------------
+-- File Explorer Configuration
+-------------------------------------------------------------
 require('nvim-tree').setup()
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
-  -----------------------------------------------------------
-  -- Telescope Fuzzy Finder Conf
-  -----------------------------------------------------------
+-------------------------------------------------------------
+-- Telescope Fuzzy Finder Configuration
+-------------------------------------------------------------
 require('telescope').setup{
   defaults = {
-    file_ignore_patterns = {"node_modules", ".git"},
+    file_ignore_patterns = { "node_modules", ".git" },
   }
 }
 vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope find_files<CR>', { noremap = true, silent = true })
 
-  -----------------------------------------------------------
-  -- GIT Conf
-  -----------------------------------------------------------
-  require('gitsigns').setup()
-  
-  -----------------------------------------------------------
-  -- TERMINAL INT
-  -----------------------------------------------------------
- require("toggleterm").setup{
+-------------------------------------------------------------
+-- Git Configuration
+-------------------------------------------------------------
+require('gitsigns').setup()
+
+-------------------------------------------------------------
+-- Terminal Integration Configuration
+-------------------------------------------------------------
+require("toggleterm").setup{
   open_mapping = [[<C-\>]],
   direction = 'float',
 }
 
-   -----------------------------------------------------------
-  -- DAP Debugging
-  -----------------------------------------------------------
+-------------------------------------------------------------
+-- Debugger (DAP) Configuration
+-------------------------------------------------------------
 local dap = require('dap')
 local dapui = require('dapui')
 
@@ -166,21 +150,19 @@ vim.api.nvim_set_keymap('n', '<F10>', ':lua require"dap".step_over()<CR>', { nor
 vim.api.nvim_set_keymap('n', '<F11>', ':lua require"dap".step_into()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<F12>', ':lua require"dap".step_out()<CR>', { noremap = true, silent = true })
 
-
-  -----------------------------------------------------------
-  -- UI and Keybindings
-  -----------------------------------------------------------
-  -- Lualine and Barbar
+-------------------------------------------------------------
+-- UI and Keybindings Configuration
+-------------------------------------------------------------
 require('lualine').setup { options = { theme = 'gruvbox' } }
-require'bufferline'.setup{}
+require('bufferline').setup{}
 
 -- Auto-pairs and Comments
 require('nvim-autopairs').setup{}
 require('kommentary.config').use_extended_mappings()
 
-  -----------------------------------------------------------
-  -- Treesitter for Syntax Highlighting
-  -----------------------------------------------------------
+-------------------------------------------------------------
+-- Treesitter for Syntax Highlighting
+-------------------------------------------------------------
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "python", "rust", "c", "cpp", "cuda", "fortran" },
   highlight = { enable = true },
@@ -188,11 +170,14 @@ require('nvim-treesitter.configs').setup {
   playground = { enable = true },
 }
 
-  -----------------------------------------------------------
-  -- Telescop Keyindings
-  -----------------------------------------------------------
+-------------------------------------------------------------
+-- Telescope Keybindings
+-------------------------------------------------------------
 vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap = true, silent = true })
+
+--congigure
+vim.g.barbar_icons_filetype_enabled = false
 
