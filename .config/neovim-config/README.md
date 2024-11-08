@@ -1,13 +1,11 @@
----
+
 
 # Neovim IDE Setup on Arch Linux
-
 A complete Neovim setup IDE on Arch Linux.
 Support languages : Python, Rust, Fortran, C/C++, and CUDA. 
 It includes essential plugins and configurations for a DE features LSP, debugging, Git integration, fuzzy finding, completion, file exp, Terminal Lng and more.
 
 ## Table of Contents
-
 1. [Installation](#installation)
 2. [Configuration](#configuration)
 3. [Features Overview](#features-overview)
