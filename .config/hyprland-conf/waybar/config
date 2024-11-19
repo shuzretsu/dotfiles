@@ -1,150 +1,99 @@
-* {
-    border: none;
-    border-radius: 10px;
-    font-family: Roboto, 'Font Awesome 5', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    min-height: 0;
-}
-
-window#waybar {
-    background: rgba(43, 48, 59, 0.5);
-    color: #ffffff;
-}
-
-window#waybar.hidden {
-    opacity: 0.0;
-}
-
-#workspaces button,
-#hyprland-workspaces button {
-    padding: 0 5px;
-    background: transparent;
-    color: #ffffff;
-    border-bottom: 3px solid transparent;
-}
-
-#workspaces button.focused,
-#hyprland-workspaces button.focused {
-    background: #64727D;
-    border-bottom: 3px solid #ffffff;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
-#hyprland-workspaces {
-    margin-right: 5px;
-    padding: 5px;
-}
-
-#mode,
-#clock {
-    padding: 0 10px;
-    margin: 0 5px;
-    background-color: #780606;
-}
-
-#battery,
-#cpu,
-#memory,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#custom-media,
-#tray,
-#idle_inhibitor {
-    padding: 0 10px;
-    margin: 0 5px;
-}
-
-#custom-power{
-    padding: 0 10px;
-    margin: 0 5px;
-}
-
-#battery {
-    background: #780606;
-}
-
-#battery.charging {
-    background: #780606;
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
+{
+    "layer": "top",
+    "position": "top",
+    "height": 25,
+    "width": 1920,
+    "modules-left": ["custom/archlogo", "hyprland/workspaces"],
+    "modules-center": [ ],
+    "modules-right": [
+        "tray", "pulseaudio", "network", "cpu", "memory", 
+        "temperature", "backlight", "battery", "clock", "custom/power"
+    ],
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": "{name}",
+        "icon-default": "",        
+        "icon-focused": "",       
+        "icon-urgent": "",         
+        "active-only": false,      
+        "max-icon-len": 30
+   },
+    "custom/archlogo": {
+        "format": "",
+        "on-click": "~/.config/scripts/toggle_rofi.sh",
+        "tooltip": "Menu"
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "~/.config/scripts/power_menu.sh",
+        "tooltip": "Power Menu"
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "", "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 30,
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+        "format-alt": "{:%Y-%m-%d}",
+        "tooltip": "clock"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C "
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "states": [0, 40],
+        "format-icons": ["", ""]
+    },
+    "battery": {
+        "states": {
+            "good": 95, "warning": 30, "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-alt": "{ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "Disconnected ⚠",
+        "interval": 7,
+        "click-left": "xfce4-terminal -e bash -c 'ip a; sleep 5'",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "", "handsfree": "", "headset": "", 
+            "phone": "", "portable": "", "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "", "default": "🎜"
+        },
+        "exec": "$HOME/.config/waybar/mediaplayer.py"
     }
-}
-
-#battery.critical:not(.charging) {
-    background: #f53c3c;
-    animation: blink 0.5s linear infinite alternate;
-}
-
-#cpu {
-    background: #780606;
-}
-
-#memory {
-    background: #780606;
-}
-
-#backlight {
-    background: #780606;
-}
-
-#network {
-    background: #780606;
-}
-
-#network.disconnected {
-    background: #ffffff;
-}
-
-#pulseaudio {
-    background: #780606;
-}
-
-#pulseaudio.muted {
-    background: #780606;
-    color: #ffffff;
-}
-
-#custom-media {
-    background: #66cc99;
-    color: #2a5c45;
-}
-
-#temperature {
-    background: #780606;
-}
-
-#temperature.critical {
-    background: #eb4d4b;
-}
-
-#tray {
-    background-color: #2980b9;
-}
-
-#idle_inhibitor {
-    background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
-}
-
-#custom-archlogo {
-    padding: 0 15px;
-    margin: 0 5px;
-}
-
-#hyprland-workspaces {
-    padding: 0 5px;
-    margin: 0 5px;
 }
