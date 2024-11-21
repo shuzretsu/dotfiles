@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-    background: rgba(43, 48, 59, 0.5);
+    background: rgba(10, 10, 10, 0.1);
     color: #ffffff;
 }
 
@@ -147,4 +147,11 @@ window#waybar.hidden {
 #hyprland-workspaces {
     padding: 0 5px;
     margin: 0 5px;
+}
+#custom-media {
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-size: 15px; /* adjust as needed */
+    color: #ffffff; /* make sure the text is visible */
 }
