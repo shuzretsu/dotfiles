@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 25,
+  "height": 30,
   "width": 1920,
   "modules-left": ["custom/archlogo", "hyprland/workspaces", "custom/previous", "custom/media", "custom/next"],
   "modules-center": [],
