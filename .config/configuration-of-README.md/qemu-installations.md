@@ -1,5 +1,10 @@
 ### **Step 1: Install QEMU and Required Packages**
-Run the following command to install QEMU and basic dependencies:
+First, we just need to install dependency for all qemu installation, after some installation, there will be 3 choices;
+1. qemu-base
+2. qemu-desktop
+3. qemu-full
+the different? well, if you are an advanced user that need configure all of you wanted, you can use qemu-base that are so minim on installation, you are your own captain, the qemu-desktop is the way for general user, i mean, it contain decent-good lib that support general emulations, the qemu-desktop is full configuration well to go, but heavy.
+
 ```bash
 sudo pacman -S qemu virt-manager virt-viewer libvirt dnsmasq vde2 bridge-utils openbsd-netcat edk2-ovmf
 ```
@@ -7,13 +12,13 @@ sudo pacman -S qemu virt-manager virt-viewer libvirt dnsmasq vde2 bridge-utils o
 ---
 
 ### **Step 2: Enable Virtualization Support**
-Ensure your CPU supports virtualization:
+You need a CPU supports for virtualization:
 1. Enable **VT-x** (Intel) or **AMD-V** (AMD) in your BIOS/UEFI settings.
-2. Verify that your system supports virtualization:
+2. Verify if your system supports virtualization:
    ```bash
    egrep -o '(vmx|svm)' /proc/cpuinfo
    ```
-   If no output appears, you might need to enable it in the BIOS/UEFI.
+   If no output appears, you might need to enable it in the BIOS/UEFI. it is easy... just go way to google what it is, every laptop and PC had different keystroke to go to BIOS.
 
 ---
 
@@ -28,17 +33,41 @@ Ensure your CPU supports virtualization:
    ```bash
    sudo usermod -aG libvirt $(whoami)
    ```
-   Log out and log back in to apply the group change.
+   Log out and log back in to apply the group change, you can change whoami to whatever user.
 
 3. **Check the Status of Libvirt**:
    ```bash
    systemctl status libvirtd
    ```
-
 ---
+*VERY IMPORTANT NOTE :
+if you encounter an error like this :
+```bash
+Nov 21 19:35:23 archlinux libvirtd[10559]: Cannot find 'dmidecode' in path: No such file or directory
+Nov 21 19:35:23 archlinux libvirtd[10559]: Unable to open /dev/kvm: No such file or directory
+Nov 21 19:35:23 archlinux libvirtd[10559]: Cannot find 'dmidecode' in path: No such file or directory
+```
+you need to mount kvm by :
+```bash
+lsmod | grep kvm
+sudo modprobe kvm
+sudo modprobe kvm_(your cpu) #intel/amd
+```
+then you need to confirm it is load by :
 
+```bash
+ls -l /dev/kvm
+```
+also, install some package/library that are not in there, for exammple in this case is dmicode just install the package that lack.
+after that, you need to restart libvirt by :
+```bash
+sudo systemctl restart libvirtd
+and >
+systemctl status libvirtd #For confirming that it perfectly loaded.
+```
+---
 ### **Step 4: Set Up Networking**
-Libvirt sets up a default network for your virtual machines. To ensure it works:
+Libvirt sets up a default network for your virtual machines. To ensure it works just type:
 1. Start the default network:
    ```bash
    sudo virsh net-start default
