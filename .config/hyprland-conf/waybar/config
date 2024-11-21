@@ -3,11 +3,11 @@
   "position": "top",
   "height": 30,
   "width": 1920,
-  "modules-left": ["custom/archlogo", "hyprland/workspaces", "custom/previous", "custom/media", "custom/next"],
-  "modules-center": [],
+  "modules-left": ["custom/archlogo", "hyprland/workspaces", "custom/media"],
+  "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio", "network", "cpu", "memory", 
-    "temperature", "backlight", "battery", "clock", "custom/power"
+    "temperature", "backlight", "battery", "custom/power"
   ],
   
   "hyprland/workspaces": {
@@ -32,22 +32,13 @@
     "tooltip": "Power Menu"
   },
   
-  "sway/mode": {
-    "format": "<span style=\"italic\">{}</span>"
-  },
-  
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
       "activated": "", "deactivated": ""
     }
   },
-  
-  "tray": {
-    "icon-size": 30,
-    "spacing": 10
-  },
-  
+
   "clock": {
     "tooltip-format": "{:%Y-%m-%d | %H:%M}",
     "format-alt": "{:%Y-%m-%d}",
