@@ -1,14 +1,27 @@
 * {
     border: none;
-    border-radius: 100px;
+    border-radius: 10px;
     font-family: "Terminess Nerd Font", "sans-serif";
     font-size: 15px;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(10, 10, 10, 0.4);
+    background: rgba(0, 0, 0, 0);
     color: #ffffff;
+}
+
+.modules-right{
+    background: rgba(120, 6, 6, 0.6);
+    margin: 1px 0 0 0;
+}
+.modules-center {
+    background-color: rgba(0,0,0,0.4);
+    margin: 1px 0 0 0;
+}
+.modules-left {
+    margin: 1px 0 0 0px;
+    background-color: rgba(0,119,179,0.6);
 }
 
 window#waybar.hidden {
@@ -42,7 +55,7 @@ window#waybar.hidden {
 #clock {
     padding: 0 10px;
     margin: 0 5px;
-    background-color: rgba(120, 6, 6, 0.4);
+    background-color: transparent;
 
 }
 
@@ -54,7 +67,6 @@ window#waybar.hidden {
 #network,
 #pulseaudio,
 #custom-media,
-#tray,
 #idle_inhibitor {
     padding: 0 10px;
     margin: 0 5px;
@@ -63,15 +75,15 @@ window#waybar.hidden {
 #custom-power{
     padding: 0 10px;
     margin: 0 5px;
-    background-color: rgba(120, 6, 6, 0.4);
+    background-color: transparent;
 }
 
 #battery {
-    background: #780606;
+    background: transparent;
 }
 
 #battery.charging {
-    background: #780606;
+    background: transparent;
 }
 
 @keyframes blink {
@@ -82,24 +94,24 @@ window#waybar.hidden {
 }
 
 #battery.critical:not(.charging) {
-    background: #f53c3c;
+    background: rgba(120, 6, 6, 0.4);
     animation: blink 0.5s linear infinite alternate;
 }
 
 #cpu {
-    background: #780606;
+    background: transparent;
 }
 
 #memory {
-    background: #780606;
+    background: transparent;
 }
 
 #backlight {
-    background: #780606;
+    background: transparent;
 }
 
 #network {
-    background: #780606;
+    background: transparent;
 }
 
 #network.disconnected {
@@ -107,29 +119,20 @@ window#waybar.hidden {
 }
 
 #pulseaudio {
-    background: #780606;
+    background-color: transparent;
 }
 
 #pulseaudio.muted {
-    background: #780606;
+    background: transparent;
     color: #ffffff;
 }
 
-#custom-media {
-    background: #66cc99;
-    color: #2a5c45;
-}
-
 #temperature {
-    background: #780606;
+    background: transparent;
 }
 
 #temperature.critical {
-    background: #eb4d4b;
-}
-
-#tray {
-    background-color: #2980b9;
+    background: rgba(120, 6, 6, 0.4);
 }
 
 #idle_inhibitor {
@@ -155,8 +158,8 @@ window#waybar.hidden {
     /*background-color: rgba(120, 6, 6, 0.4);*/
     padding: 0;
     border: none;
-    font-size: 15px; /* adjust as needed */
-    color: #ffffff; /* make sure the text is visible */
+    font-size: 15px; 
+    color: #ffffff; 
 }
 
 
