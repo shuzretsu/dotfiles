@@ -3,7 +3,7 @@ First, we just need to install dependency for all qemu installation, after some 
 1. qemu-base
 2. qemu-desktop
 3. qemu-full
-the different? well, if you are an advanced user that need configure all of you wanted, you can use qemu-base that are so minim on installation, you are your own captain, the qemu-desktop is the way for general user, i mean, it contain decent-good lib that support general emulations, the qemu-desktop is full configuration well to go, but heavy.
+<br>the different? well, if you are an advanced user that need configure all of you wanted, you can use qemu-base that are so minim on installation, you are your own captain, the qemu-desktop is the way for general user, i mean, it contain decent-good lib that support general emulations, the qemu-desktop is full configuration well to go, but heavy.
 
 ```bash
 sudo pacman -S qemu virt-manager virt-viewer libvirt dnsmasq vde2 bridge-utils openbsd-netcat edk2-ovmf
