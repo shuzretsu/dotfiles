@@ -6,7 +6,7 @@
   "modules-left": ["custom/archlogo", "hyprland/workspaces", "custom/media"],
   "modules-center": ["clock"],
   "modules-right": [
-    "pulseaudio", "network", "cpu", "memory", 
+     "pulseaudio", "network", "cpu", "memory", 
     "temperature", "backlight", "battery", "custom/power"
   ],
   
@@ -32,13 +32,22 @@
     "tooltip": "Power Menu"
   },
   
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+  
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
       "activated": "", "deactivated": ""
     }
   },
-
+  
+  "tray": {
+    "icon-size": 30,
+    "spacing": 10
+  },
+  
   "clock": {
     "tooltip-format": "{:%Y-%m-%d | %H:%M}",
     "format-alt": "{:%Y-%m-%d}",
@@ -94,10 +103,12 @@
   },
   
   "custom/media": {
-    "exec": "/home/shuzretsu/.config/waybar/mediaplayer.sh",
-    "interval": 0.2,
+    "exec": "/home/shuzretsu/.config/scripts/mediaplayer.sh",
+    "interval": 0.25,
     "background": "#1e1e1e",  
     "on-click": "flatpak run com.spotify.Client",
-    "format":"{}"
+    "format":"{}",
+     "max-length": 20,
+     "min-length": 20
   }
 }
