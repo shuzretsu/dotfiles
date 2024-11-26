@@ -46,6 +46,7 @@ Nov 21 19:35:23 archlinux libvirtd[10559]: Cannot find 'dmidecode' in path: No s
 Nov 21 19:35:23 archlinux libvirtd[10559]: Unable to open /dev/kvm: No such file or directory
 Nov 21 19:35:23 archlinux libvirtd[10559]: Cannot find 'dmidecode' in path: No such file or directory
 ```
+---
 you need to mount kvm by :
 ```bash
 lsmod | grep kvm
