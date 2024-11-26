@@ -33,8 +33,7 @@ You need a CPU supports for virtualization:
    ```bash
    sudo usermod -aG libvirt $(whoami)
    ```
-   Log out and log back in to apply the group change, you can change whoami to whatever user.
-
+   Log out and log back in to apply the group change.
 3. **Check the Status of Libvirt**:
    ```bash
    systemctl status libvirtd
