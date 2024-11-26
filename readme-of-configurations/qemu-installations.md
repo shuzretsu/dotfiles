@@ -58,7 +58,7 @@ then you need to confirm it is load by :
 ```bash
 ls -l /dev/kvm
 ```
-also, install some package/library that are not in there, for exammple in this case is dmicode just install the package that lack.
+also, install some package/library that are not in there, for exammple in this case is dmidecode just install the package that lack.
 after that, you need to restart libvirt by :
 ```bash
 sudo systemctl restart libvirtd
